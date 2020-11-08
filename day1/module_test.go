@@ -36,3 +36,30 @@ func TestGetRequiredFuel(t *testing.T) {
 	}
 
 }
+
+func TestGetRequiredFuelWithFuelMass(t *testing.T) {
+	var module Module
+	var expectedTotalFuel int
+	var totalFuel int
+
+	module.Mass = 14
+	expectedTotalFuel = 2
+	totalFuel = module.GetRequiredFuelWithFuelMass()
+	if totalFuel != expectedTotalFuel {
+		t.Errorf("Total fuel should be %v, got %v", expectedTotalFuel, totalFuel)
+	}
+
+	module.Mass = 1969
+	expectedTotalFuel = 966
+	totalFuel = module.GetRequiredFuelWithFuelMass()
+	if totalFuel != expectedTotalFuel {
+		t.Errorf("Total fuel should be %v, got %v", expectedTotalFuel, totalFuel)
+	}
+
+	module.Mass = 100756
+	expectedTotalFuel = 50346
+	totalFuel = module.GetRequiredFuelWithFuelMass()
+	if totalFuel != expectedTotalFuel {
+		t.Errorf("Total fuel should be %v, got %v", expectedTotalFuel, totalFuel)
+	}
+}

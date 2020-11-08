@@ -36,7 +36,7 @@ func getMasses(filePath string) []int {
 	return masses
 }
 
-// getTotalRequiredFuel counts the sum of all required fuel in each module in modules and returns it
+// getTotalRequiredFuel counts the sum of all required fuel of each module and returns it
 func getTotalRequiredFuel(modules []Module) int {
 	total := 0
 
@@ -49,11 +49,14 @@ func getTotalRequiredFuel(modules []Module) int {
 func main() {
 	masses := getMasses(massesPath)
 	var modules []Module
+	var modulesWithFuelMass []Module
 
 	// Create modules for each retrieved mass
 	// Each modules has its corresponding fuel required amount
 	for _, mass := range masses {
 		modules = append(modules, NewModule(mass))
+		modulesWithFuelMass = append(modulesWithFuelMass, NewModuleWithFuelMass(mass))
 	}
 	fmt.Println("Total fuel required:", getTotalRequiredFuel(modules))
+	fmt.Println("Total fuel required when counting fuel mass:", getTotalRequiredFuel(modulesWithFuelMass))
 }
