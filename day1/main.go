@@ -37,8 +37,7 @@ func getMasses(filePath string) []int {
 }
 
 func main() {
-	module := Module{12, 0}
+	module := NewModule(12)
 
-	module.RequiredFuel = module.GetRequiredFuel()
-	fmt.Println("Masses", getMasses(massesPath))
+	fmt.Println(module)
 }
