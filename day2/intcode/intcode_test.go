@@ -22,5 +22,23 @@ func TestGetIntCodes(t *testing.T) {
 	if !reflect.DeepEqual(output, expected) {
 		t.Errorf("Got different output: %v, expected: %v", output, expected)
 	}
+}
 
+func TestProcessOpCode(t *testing.T) {
+	var result error
+
+	_, result = ProcessOpCode(0, 1, 1)
+	if result == nil {
+		t.Error("Was expecting non nil error for opCode 0.")
+	}
+
+	_, result = ProcessOpCode(1000, 1, 1)
+	if result == nil {
+		t.Error("Was expecting non nil error for opCode out of range.")
+	}
+
+	_, result = ProcessOpCode(1, 1, 1)
+	if result != nil {
+		t.Error("Was expecting nil error for correct opCode.")
+	}
 }
