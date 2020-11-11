@@ -74,3 +74,25 @@ func ComputeIntCodes(intCodes []int) {
 		intCodes[outputPosition] = output
 	}
 }
+
+// FindInputPair tests all possible values for noun (Position 1) and verb (Position 2) between 0 and 99 included
+// to get an output at the given position.
+// Returns a pair of negative values if no pair give the expected output
+func FindInputPair(baseIntCodes []int, output int, position int) (int, int) {
+	var noun, verb int
+	intCodesCpy := make([]int, len(baseIntCodes))
+
+	for noun = 0; noun <= 99; noun++ {
+		for verb = 0; verb <= 99; verb++ {
+			copy(intCodesCpy, baseIntCodes)
+			intCodesCpy[1] = noun
+			intCodesCpy[2] = verb
+			ComputeIntCodes(intCodesCpy)
+
+			if intCodesCpy[position] == output {
+				return noun, verb
+			}
+		}
+	}
+	return -1, -1
+}

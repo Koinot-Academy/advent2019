@@ -29,6 +29,16 @@ func main() {
 
 	intcode.ComputeIntCodes(intCodes)
 	displayResult(intCodes)
+
+	// For Part 2
+	valueToFind := 19690720
+	data, err = ioutil.ReadFile(inputPath)
+	check(err)
+	intCodes = intcode.GetIntCodes(string(data))
+
+	noun, verb := intcode.FindInputPair(intCodes, valueToFind, 0)
+	fmt.Printf("\nPART TWO\nTo find %v, we must have noun=%v and verb=%v\n", valueToFind, noun, verb)
+	fmt.Println("Part two answer is:", 100*noun+verb)
 }
 
 func displayResult(intCodes []int) {
