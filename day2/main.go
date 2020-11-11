@@ -22,6 +22,11 @@ func main() {
 	check(err)
 
 	intCodes := intcode.GetIntCodes(string(data))
+
+	// Instructions tell to replace those values
+	intCodes[1] = 12
+	intCodes[2] = 2
+
 	intcode.ComputeIntCodes(intCodes)
 	displayResult(intCodes)
 }
