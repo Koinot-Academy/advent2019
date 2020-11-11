@@ -52,3 +52,25 @@ func ProcessOpCode(opCode int, firstInput int, secInput int) (int, error) {
 	}
 	return opCodeImplementation(firstInput, secInput), nil
 }
+
+// ComputeIntCodes modifies intCodes values following opCodes instructions
+func ComputeIntCodes(intCodes []int) {
+
+	for opCodeIndex := 0; ; opCodeIndex += 4 {
+		opCode := intCodes[opCodeIndex]
+		if opCode == 99 {
+			// We halt the program
+			return
+		}
+
+		firstInputIndex := intCodes[opCodeIndex+1]
+		secInputIndex := intCodes[opCodeIndex+2]
+		outputPosition := intCodes[opCodeIndex+3]
+
+		output, err := ProcessOpCode(opCode, intCodes[firstInputIndex], intCodes[secInputIndex])
+		if err != nil {
+			return
+		}
+		intCodes[outputPosition] = output
+	}
+}

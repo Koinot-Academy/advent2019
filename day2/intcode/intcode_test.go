@@ -42,3 +42,36 @@ func TestProcessOpCode(t *testing.T) {
 		t.Error("Was expecting nil error for correct opCode.")
 	}
 }
+
+func TestComputeIntCodes(t *testing.T) {
+	var input []int
+	var expected []int
+
+	input = []int{1, 0, 0, 0, 99}
+	expected = []int{2, 0, 0, 0, 99}
+	ComputeIntCodes(input)
+	if !reflect.DeepEqual(input, expected) {
+		t.Errorf("Expecting %v, got %v", expected, input)
+	}
+
+	input = []int{2, 3, 0, 3, 99}
+	expected = []int{2, 3, 0, 6, 99}
+	ComputeIntCodes(input)
+	if !reflect.DeepEqual(input, expected) {
+		t.Errorf("Expecting %v, got %v", expected, input)
+	}
+
+	input = []int{2, 4, 4, 5, 99, 0}
+	expected = []int{2, 4, 4, 5, 99, 9801}
+	ComputeIntCodes(input)
+	if !reflect.DeepEqual(input, expected) {
+		t.Errorf("Expecting %v, got %v", expected, input)
+	}
+
+	input = []int{1, 1, 1, 4, 99, 5, 6, 0, 99}
+	expected = []int{30, 1, 1, 4, 2, 5, 6, 0, 99}
+	ComputeIntCodes(input)
+	if !reflect.DeepEqual(input, expected) {
+		t.Errorf("Expecting %v, got %v", expected, input)
+	}
+}
