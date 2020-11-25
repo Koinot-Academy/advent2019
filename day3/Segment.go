@@ -6,7 +6,7 @@ type Segment struct {
 	SecPoint   Point
 }
 
-// NewSegments initializes a segment with two points
+// NewSegment initializes a segment with two points
 func NewSegment(fPoint, sPoint Point) Segment {
 	return Segment{FirstPoint: fPoint, SecPoint: sPoint}
 }
