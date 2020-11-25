@@ -104,6 +104,22 @@ func TestCrosses(t *testing.T) {
 		t.Errorf("Segments should have crossed at %v, found %v.", expected, actual)
 	}
 
+	// First horizontal, second vertical, not crossing
+	fSeg = Segment{FirstPoint: Point{76, -29}, SecPoint: Point{159, -29}}
+	sSeg = Segment{FirstPoint: Point{101, 118}, SecPoint: Point{101, 47}}
+	actual = fSeg.Crosses(sSeg)
+	if actual != nil {
+		t.Errorf("Segments should not have crossed, found %v.", actual)
+	}
+
+	// First vertical, second horizontal, not crossing
+	fSeg = Segment{FirstPoint: Point{1, 118}, SecPoint: Point{1, -29}}
+	sSeg = Segment{FirstPoint: Point{24, 45}, SecPoint: Point{180, 45}}
+	actual = fSeg.Crosses(sSeg)
+	if actual != nil {
+		t.Errorf("Segments should not have crossed, found %v.", actual)
+	}
+
 	// Parallel segments
 	sSeg = Segment{FirstPoint: Point{9, 6}, SecPoint: Point{4, 6}}
 	fSeg = Segment{FirstPoint: Point{2, 4}, SecPoint: Point{7, 4}}

@@ -1,10 +1,5 @@
 package main
 
-import (
-	"strconv"
-	"strings"
-)
-
 // Wire represents multiple segments connected with each other
 type Wire struct {
 	Segments []Segment
@@ -35,41 +30,4 @@ func GetCrossingPoints(fWire, sWire Wire) []Point {
 		}
 	}
 	return crossingPoints
-}
-
-// GetPointsFromPath slices path into directions to deduct a set of points
-// starting at start point.
-// path expects this format: "R100,D10,U30,L87"
-// Returns an empty Point slice if any error happens
-func GetPointsFromPath(path string, start Point) []Point {
-	var points []Point
-	var directions []string
-
-	directions = strings.Split(path, ",")
-	// Init points slice with capacity for all points counting start one
-	points = make([]Point, 1, len(directions)+1)
-	points[0] = start
-	for i, direction := range directions {
-		var xFactor, yFactor int
-		previousPoint := points[i]
-		offset, err := strconv.Atoi(direction[1:])
-
-		if err != nil {
-			return make([]Point, 0)
-		}
-		// Getting factors for each direction
-		switch direction[0] {
-		case 'R':
-			xFactor = 1
-		case 'L':
-			xFactor = -1
-		case 'D':
-			yFactor = -1
-		case 'U':
-			yFactor = 1
-		}
-		// One of both factors will have a zero value, so only one axis value will be modified
-		points = append(points, Point{previousPoint.X + offset*xFactor, previousPoint.Y + offset*yFactor})
-	}
-	return points
 }

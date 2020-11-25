@@ -34,31 +34,3 @@ func TestGetCrossingPoints(t *testing.T) {
 		t.Errorf("Wrong crossing points. Expected %v, got %v", expected, actual)
 	}
 }
-
-func TestGetPointsFromPath(t *testing.T) {
-	var path string
-	start := Point{1, 1}
-	var expected, actual []Point
-
-	path = "R8,U5,L5,D3"
-	expected = []Point{start, {9, 1}, {9, 6}, {4, 6}, {4, 3}}
-	actual = GetPointsFromPath(path, start)
-	if !reflect.DeepEqual(actual, expected) {
-		t.Errorf("Wrong points. Got %v expected %v", actual, expected)
-	}
-
-	path = "U7,R6,D4,L4"
-	expected = []Point{start, {1, 8}, {7, 8}, {7, 4}, {3, 4}}
-	actual = GetPointsFromPath(path, start)
-	if !reflect.DeepEqual(actual, expected) {
-		t.Errorf("Wrong points. Got %v expected %v", actual, expected)
-	}
-
-	// Invalid offsets
-	path = "R8@è,U5,L5,D3"
-	expected = make([]Point, 0)
-	actual = GetPointsFromPath(path, start)
-	if !reflect.DeepEqual(actual, expected) {
-		t.Errorf("Wrong points. Got %v expected %v", actual, expected)
-	}
-}
