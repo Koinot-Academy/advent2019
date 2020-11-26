@@ -79,7 +79,7 @@ func TestAreParallel(t *testing.T) {
 	}
 }
 
-func TestCrosses(t *testing.T) {
+func TestIntersects(t *testing.T) {
 	var fSeg, sSeg Segment
 	var expected Point
 	var actual *Point
@@ -89,7 +89,7 @@ func TestCrosses(t *testing.T) {
 	sSeg = Segment{FirstPoint: Point{4, 6}, SecPoint: Point{9, 6}}
 	expected = Point{7, 6}
 
-	actual = fSeg.Crosses(sSeg)
+	actual = fSeg.Intersects(sSeg)
 	if *actual != expected {
 		t.Errorf("Segments should have crossed at %v, found %v.", expected, actual)
 	}
@@ -99,7 +99,7 @@ func TestCrosses(t *testing.T) {
 	fSeg = Segment{FirstPoint: Point{7, 8}, SecPoint: Point{7, 4}}
 	expected = Point{7, 6}
 
-	actual = fSeg.Crosses(sSeg)
+	actual = fSeg.Intersects(sSeg)
 	if *actual != expected {
 		t.Errorf("Segments should have crossed at %v, found %v.", expected, actual)
 	}
@@ -107,7 +107,7 @@ func TestCrosses(t *testing.T) {
 	// First horizontal, second vertical, not crossing
 	fSeg = Segment{FirstPoint: Point{76, -29}, SecPoint: Point{159, -29}}
 	sSeg = Segment{FirstPoint: Point{101, 118}, SecPoint: Point{101, 47}}
-	actual = fSeg.Crosses(sSeg)
+	actual = fSeg.Intersects(sSeg)
 	if actual != nil {
 		t.Errorf("Segments should not have crossed, found %v.", actual)
 	}
@@ -115,7 +115,7 @@ func TestCrosses(t *testing.T) {
 	// First vertical, second horizontal, not crossing
 	fSeg = Segment{FirstPoint: Point{1, 118}, SecPoint: Point{1, -29}}
 	sSeg = Segment{FirstPoint: Point{24, 45}, SecPoint: Point{180, 45}}
-	actual = fSeg.Crosses(sSeg)
+	actual = fSeg.Intersects(sSeg)
 	if actual != nil {
 		t.Errorf("Segments should not have crossed, found %v.", actual)
 	}
@@ -124,7 +124,7 @@ func TestCrosses(t *testing.T) {
 	sSeg = Segment{FirstPoint: Point{9, 6}, SecPoint: Point{4, 6}}
 	fSeg = Segment{FirstPoint: Point{2, 4}, SecPoint: Point{7, 4}}
 
-	actual = fSeg.Crosses(sSeg)
+	actual = fSeg.Intersects(sSeg)
 	if actual != nil {
 		t.Errorf("Segments should not have crossed, found %v.", actual)
 	}

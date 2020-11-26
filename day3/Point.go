@@ -63,9 +63,7 @@ func GetMinManhattanDistance(points []Point, reference Point) int {
 
 	for i, point := range points {
 		tmpDistance := GetManhattanDistance(reference, point)
-		if i == 0 {
-			minDistance = tmpDistance
-		} else if tmpDistance < minDistance {
+		if i == 0 || tmpDistance < minDistance {
 			minDistance = tmpDistance
 		}
 	}

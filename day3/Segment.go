@@ -33,10 +33,10 @@ func (seg Segment) IsVertical() bool {
 	return seg.FirstPoint.X == seg.SecPoint.X
 }
 
-// Crosses checks if seg and secSeg cross each other. If so, it returns a *Point
+// Intersects checks if seg and secSeg intersect with each other. If so, it returns a *Point
 // or nil if segments do not cross.
-func (seg Segment) Crosses(secSeg Segment) *Point {
-	var crossedPoint *Point = nil
+func (seg Segment) Intersects(secSeg Segment) *Point {
+	var intersection *Point = nil
 
 	// If both segments are not parallel, they might cross
 	if !AreParallel(seg, secSeg) {
@@ -45,7 +45,7 @@ func (seg Segment) Crosses(secSeg Segment) *Point {
 			segX := seg.FirstPoint.X    // seg is vertical so X is constant
 			if (secSeg.FirstPoint.X <= segX && secSeg.SecPoint.X >= segX) || (secSeg.SecPoint.X <= segX && secSeg.FirstPoint.X >= segX) {
 				if (seg.FirstPoint.Y <= secY && seg.SecPoint.Y >= secY) || (seg.SecPoint.Y <= secY && seg.FirstPoint.Y >= secY) {
-					crossedPoint = &Point{seg.FirstPoint.X, secY}
+					intersection = &Point{seg.FirstPoint.X, secY}
 				}
 			}
 		} else {
@@ -54,12 +54,12 @@ func (seg Segment) Crosses(secSeg Segment) *Point {
 			segY := seg.FirstPoint.Y    // seg is horizontal so Y is constant
 			if (secSeg.FirstPoint.Y <= segY && secSeg.SecPoint.Y >= segY) || (secSeg.SecPoint.Y <= segY && secSeg.FirstPoint.Y >= segY) {
 				if (seg.FirstPoint.X <= secX && seg.SecPoint.X >= secX) || (seg.SecPoint.X <= secX && seg.FirstPoint.X >= secX) {
-					crossedPoint = &Point{secX, seg.FirstPoint.Y}
+					intersection = &Point{secX, seg.FirstPoint.Y}
 				}
 			}
 		}
 	}
-	return crossedPoint
+	return intersection
 }
 
 // ContainsPoint reports if a segment contains a point.

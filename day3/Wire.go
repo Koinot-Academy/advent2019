@@ -18,20 +18,20 @@ func NewWire(points []Point) Wire {
 	return wire
 }
 
-// GetCrossingPoints returns a slice of points where both wires cross
-// Returns nil if the two wires do not cross
-func GetCrossingPoints(fWire, sWire Wire) []Point {
-	var crossingPoints []Point
+// GetIntersections returns a slice of points where both wires intersect
+// Returns nil if the two wires do not intersect
+func GetIntersections(fWire, sWire Wire) []Point {
+	var intersections []Point
 
 	for _, seg1 := range fWire.Segments {
 		for _, seg2 := range sWire.Segments {
 			// If cross but not in the starting point
-			if crossingPoint := seg1.Crosses(seg2); crossingPoint != nil && seg1.FirstPoint.X != 1 && seg1.FirstPoint.Y != 1 {
-				crossingPoints = append(crossingPoints, *crossingPoint)
+			if intersection := seg1.Intersects(seg2); intersection != nil && seg1.FirstPoint.X != 1 && seg1.FirstPoint.Y != 1 {
+				intersections = append(intersections, *intersection)
 			}
 		}
 	}
-	return crossingPoints
+	return intersections
 }
 
 // GetNumberOfSteps calculates the number of steps the wire takes
