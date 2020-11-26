@@ -34,3 +34,56 @@ func TestGetCrossingPoints(t *testing.T) {
 		t.Errorf("Wrong crossing points. Expected %v, got %v", expected, actual)
 	}
 }
+
+func TestGetNumberOfSteps(t *testing.T) {
+	var expected, actual int
+	var wire Wire
+
+	wire = Wire{Segments: []Segment{
+		{Point{1, 1}, Point{9, 1}},
+		{Point{9, 1}, Point{9, 6}},
+		{Point{9, 6}, Point{4, 6}},
+		{Point{4, 6}, Point{4, 3}},
+	}}
+	expected = 20
+	actual = wire.GetNumberOfSteps(Point{4, 4})
+	if actual != expected {
+		t.Errorf("Wrong number of steps. Expected %v, got %v", expected, actual)
+	}
+
+	wire = Wire{Segments: []Segment{
+		{Point{1, 1}, Point{1, 8}},
+		{Point{1, 8}, Point{7, 8}},
+		{Point{7, 8}, Point{7, 4}},
+		{Point{7, 4}, Point{3, 4}},
+	}}
+	expected = 20
+	actual = wire.GetNumberOfSteps(Point{4, 4})
+	if actual != expected {
+		t.Errorf("Wrong number of steps. Expected %v, got %v", expected, actual)
+	}
+
+	wire = Wire{Segments: []Segment{
+		{Point{1, 1}, Point{9, 1}},
+		{Point{9, 1}, Point{9, 6}},
+		{Point{9, 6}, Point{4, 6}},
+		{Point{4, 6}, Point{4, 3}},
+	}}
+	expected = 15
+	actual = wire.GetNumberOfSteps(Point{7, 6})
+	if actual != expected {
+		t.Errorf("Wrong number of steps. Expected %v, got %v", expected, actual)
+	}
+
+	wire = Wire{Segments: []Segment{
+		{Point{1, 1}, Point{1, 8}},
+		{Point{1, 8}, Point{7, 8}},
+		{Point{7, 8}, Point{7, 4}},
+		{Point{7, 4}, Point{3, 4}},
+	}}
+	expected = 15
+	actual = wire.GetNumberOfSteps(Point{7, 6})
+	if actual != expected {
+		t.Errorf("Wrong number of steps. Expected %v, got %v", expected, actual)
+	}
+}

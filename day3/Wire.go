@@ -1,5 +1,7 @@
 package main
 
+import "math"
+
 // Wire represents multiple segments connected with each other
 type Wire struct {
 	Segments []Segment
@@ -30,4 +32,20 @@ func GetCrossingPoints(fWire, sWire Wire) []Point {
 		}
 	}
 	return crossingPoints
+}
+
+// GetNumberOfSteps calculates the number of steps the wire takes
+// to reach a point from its start
+func (wire Wire) GetNumberOfSteps(point Point) int {
+	var steps int
+
+	for _, segment := range wire.Segments {
+		if segment.ContainsPoint(point) {
+			steps += int(math.Abs(float64(segment.FirstPoint.X-point.X)) + math.Abs(float64(segment.FirstPoint.Y-point.Y)))
+			break // We finish conting when we encounter point
+		} else {
+			steps += int(math.Abs(float64(segment.FirstPoint.X-segment.SecPoint.X)) + math.Abs(float64(segment.FirstPoint.Y-segment.SecPoint.Y)))
+		}
+	}
+	return steps
 }

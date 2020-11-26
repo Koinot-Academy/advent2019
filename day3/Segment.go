@@ -61,3 +61,22 @@ func (seg Segment) Crosses(secSeg Segment) *Point {
 	}
 	return crossedPoint
 }
+
+// ContainsPoint reports if a segment contains a point.
+// If so, it returns true.
+func (seg Segment) ContainsPoint(point Point) bool {
+	var isPointInSegment bool
+
+	if point == seg.FirstPoint || point == seg.SecPoint {
+		isPointInSegment = true
+	} else if seg.IsVertical() && point.X == seg.FirstPoint.X {
+		if (seg.FirstPoint.Y > point.Y && seg.SecPoint.Y < point.Y) || (seg.SecPoint.Y > point.Y && seg.FirstPoint.Y < point.Y) {
+			isPointInSegment = true
+		}
+	} else if seg.IsHorizontal() && point.Y == seg.FirstPoint.Y {
+		if (seg.FirstPoint.X > point.X && seg.SecPoint.X < point.X) || (seg.SecPoint.X > point.X && seg.FirstPoint.X < point.X) {
+			isPointInSegment = true
+		}
+	}
+	return isPointInSegment
+}

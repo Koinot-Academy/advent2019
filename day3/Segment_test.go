@@ -130,3 +130,63 @@ func TestCrosses(t *testing.T) {
 	}
 
 }
+
+func TestContainsPoint(t *testing.T) {
+	var expected, actual bool
+	var segment Segment
+	var point Point
+
+	// Vertical contains point
+	segment = Segment{Point{1, 1}, Point{1, 8}}
+	point = Point{1, 4}
+	expected = true
+	actual = segment.ContainsPoint(point)
+	if actual != expected {
+		t.Errorf("Point %v should be considered in segment %v.", point, segment)
+	}
+
+	// Horizontal contains point
+	segment = Segment{Point{4, 5}, Point{10, 5}}
+	point = Point{8, 5}
+	expected = true
+	actual = segment.ContainsPoint(point)
+	if actual != expected {
+		t.Errorf("Point %v should be considered in segment %v.", point, segment)
+	}
+
+	// Point is one segment end
+	segment = Segment{Point{4, 5}, Point{10, 5}}
+	point = Point{4, 5}
+	expected = true
+	actual = segment.ContainsPoint(point)
+	if actual != expected {
+		t.Errorf("Point %v should be considered in segment %v.", point, segment)
+	}
+
+	// Point is one segment end
+	segment = Segment{Point{1, 1}, Point{1, 8}}
+	point = Point{1, 8}
+	expected = true
+	actual = segment.ContainsPoint(point)
+	if actual != expected {
+		t.Errorf("Point %v should be considered in segment %v.", point, segment)
+	}
+
+	// Segment horizontal point outside
+	segment = Segment{Point{1, 1}, Point{1, 8}}
+	point = Point{4, 5}
+	expected = false
+	actual = segment.ContainsPoint(point)
+	if actual != expected {
+		t.Errorf("Point %v should be considered outside segment %v.", point, segment)
+	}
+
+	// Segment vertical point outside
+	segment = Segment{Point{4, 5}, Point{10, 5}}
+	point = Point{2, 4}
+	expected = false
+	actual = segment.ContainsPoint(point)
+	if actual != expected {
+		t.Errorf("Point %v should be considered outside segment %v.", point, segment)
+	}
+}
