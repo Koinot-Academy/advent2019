@@ -4,15 +4,15 @@ package password
 
 // GetDifferentPasswordsInRange returns a slice of
 // possible password between low and high range
-func GetDifferentPasswordsInRange(low, high int) []int {
-	var passwords []int
+func GetDifferentPasswordsInRange(low, high int) int {
+	var nbPasswords int
 
 	for i := low; i <= high; i++ {
 		if PassMeetsConditions(i, [2]int{low, high}) {
-			passwords = append(passwords, i)
+			nbPasswords++
 		}
 	}
-	return passwords
+	return nbPasswords
 }
 
 // PassMeetsConditions reports if pass meets conditions to be a correct password

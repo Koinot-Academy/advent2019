@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	passwords := password.GetDifferentPasswordsInRange(240298, 784956)
-	fmt.Printf("%v password possibilities.\n", len(passwords))
+	nbEligiblePasswords := password.GetDifferentPasswordsInRange(240298, 784956)
+	fmt.Printf("%v password possibilities.\n", nbEligiblePasswords)
 }
